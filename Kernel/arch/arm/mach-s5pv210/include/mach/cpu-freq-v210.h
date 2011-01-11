@@ -32,12 +32,18 @@ enum perf_level {
 	L5,
 	L6,
 	L7,
+	L8,
+	L9,
 };
 
 enum freq_level_states {
+	LEV_1280MHZ,
 	LEV_1200MHZ,
+	LEV_1120MHZ,
 	LEV_1000MHZ,
+	LEV_900MHZ,
 	LEV_800MHZ,
+	LEV_600MHZ,
 	LEV_400MHZ,
 	LEV_200MHZ,
 	LEV_100MHZ,
@@ -50,6 +56,7 @@ extern unsigned int S5PC11X_MAXFREQLEVEL;
 extern unsigned int s5pc11x_target_frq(unsigned int pred_freq, int flag);
 extern int s5pc110_pm_target(unsigned int target_freq);
 extern int is_conservative_gov(void);
+extern int is_interactive_gov(void);
 extern int is_userspace_gov(void);
 extern void set_dvfs_target_level(enum freq_level_states freq_level);
 extern int set_voltage(enum perf_level p_lv);
