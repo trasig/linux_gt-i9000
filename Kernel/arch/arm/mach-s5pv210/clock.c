@@ -124,27 +124,6 @@ struct S5PC110_clk_info {
 	u32	dmc0_div6;
 };
 
-/*
-1600MHz CPU		200MHz GPU		1400mV
-1552MHz CPU		194MHz GPU		1375mV
-1504MHz CPU		188MHz GPU		1375mV
-1464MHz CPU		183MHz GPU		1325mV
-1456MHz CPU		208MHz GPU		1325mV
-1400MHz CPU		200MHz GPU		1300mV
-1344MHz CPU		192MHz GPU		1300mV
-1288MHz CPU		184MHz GPU		1300mV
-1200MHz CPU		200MHz GPU		1300mV
-1000MHz CPU		200MHz GPU		1275mV
-800MHz CPU		200MHz GPU		1200mV
-400MHz CPU		200MHz GPU		1050mV
-200MHz CPU		200MHz GPU		950mV
-100MHz CPU		100MHz GPU		950mV
-
-HCLK_MSYS = ARMCLK / (HCLK_MSYS_RATIO + 1)
-PCLK_MSYS = HCLK_MSYS / (PCLK_MSYS_RATIO + 1)
-*/
-
-
 struct S5PC110_clk_info clk_info[] = {
 #if CONFIG_MACH_S5PC110_ARIES_OC
 {
@@ -202,7 +181,8 @@ struct S5PC110_clk_info clk_info[] = {
 	.div2val	=	((3<<0)|(3<<4)|(3<<8)),
 	.dmc0_div6 	=	(3<<28),
 },
-#endif// A extra entry for 1200MHZ level 
+#endif
+
 {
 	// APLL:1000,ARMCLK:1000,HCLK_MSYS:200,MPLL:667,HCLK_DSYS:166,HCLK_PSYS:133,PCLK_MSYS:100,PCLK_DSYS:83,PCLK_PSYS:66
 	.armclk		=	1000* MHZ,
@@ -215,20 +195,6 @@ struct S5PC110_clk_info clk_info[] = {
 	.div2val	=	((3<<0)|(3<<4)|(3<<8)),
 	.dmc0_div6 	=	(3<<28),
 },
-#if CONFIG_MACH_S5PC110_ARIES_OC
-{
-	// APLL:900,ARMCLK:900,HCLK_MSYS:200,MPLL:667,HCLK_DSYS:166,HCLK_PSYS:133,PCLK_MSYS:100,PCLK_DSYS:83,PCLK_PSYS:66
-	.armclk		=	900* MHZ,
-	.apllout	=	900* MHZ,
-	.apll_mps	=	((225<<16)|(6<<8)|1),
-	.msys_div0	=	(0|(4<<4)|(4<<8)|(1<<12)),
-	.mpllout	=	667* MHZ,
-	.mpll_mps	=	((667<<16)|(12<<8)|(1)),
-	.psys_dsys_div0 =	((3<<16)|(1<<20)|(4<<24)|(1<<28)),
-	.div2val	=	((3<<0)|(3<<4)|(3<<8)),
-	.dmc0_div6 	=	(3<<28),
-},
-#endif// A extra entry for 1200MHZ level 
 {
 	// APLL:800,ARMCLK:800,HCLK_MSYS:200,MPLL:667,HCLK_DSYS:166,HCLK_PSYS:133,PCLK_MSYS:100,PCLK_DSYS:83,PCLK_PSYS:66
 	.armclk		=	800* MHZ,
@@ -241,20 +207,6 @@ struct S5PC110_clk_info clk_info[] = {
 	.div2val	=	((3<<0)|(3<<4)|(3<<8)),
 	.dmc0_div6 	=	(3<<28),
 },
-#if CONFIG_MACH_S5PC110_ARIES_OC
-{
-	// APLL:800,ARMCLK:800,HCLK_MSYS:200,MPLL:667,HCLK_DSYS:166,HCLK_PSYS:133,PCLK_MSYS:100,PCLK_DSYS:83,PCLK_PSYS:66
-	.armclk		=	600* MHZ,
-	.apllout	=	800* MHZ,
-	.apll_mps	=	((200<<16)|(6<<8)|1),
-	.msys_div0	=	(0|(3<<4)|(3<<8)|(1<<12)),
-	.mpllout	=	667* MHZ,
-	.mpll_mps	=	((667<<16)|(12<<8)|(1)),
-	.psys_dsys_div0 =	((3<<16)|(1<<20)|(4<<24)|(1<<28)),
-	.div2val	=	((3<<0)|(3<<4)|(3<<8)),
-	.dmc0_div6 	=	(3<<28),
-},
-#endif// A extra entry for 1200MHZ level 
 {
 	// APLL:800,ARMCLK:400,HCLK_MSYS:200,MPLL:667,HCLK_DSYS:166,HCLK_PSYS:133,PCLK_MSYS:100,PCLK_DSYS:83,PCLK_PSYS:66
 	.armclk		=	400* MHZ,

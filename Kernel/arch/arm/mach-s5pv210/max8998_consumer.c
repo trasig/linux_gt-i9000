@@ -85,19 +85,14 @@ enum PMIC_VOLTAGE {
 static const unsigned int frequency_match_1GHZ[][4] = {
 /* frequency, Mathced VDD ARM voltage , Matched VDD INT*/
 #ifdef CONFIG_MACH_S5PC110_ARIES_OC
-//        {1600000, 1500, 1100, 0}, 
-//        {1500000, 1500, 1100, 1}, 
-//        {1400000, 1500, 1100, 2}, 
         {1280000, 1300, 1100, 0}, 
         {1200000, 1300, 1100, 1}, 
         {1120000, 1300, 1100, 2}, 
         {1000000, 1275, 1100, 3}, 
-        {900000, 1275, 1100, 4}, 
-        {800000, 1200, 1100, 5}, 
-        {600000, 1175, 1100, 6}, 
-        {400000, 1050, 1100, 7}, 
-        {200000, 950, 1100, 8}, 
-        {100000, 950, 1000, 9}, 
+        {800000, 1200, 1100, 4}, 
+        {400000, 1050, 1100, 5}, 
+        {200000, 950, 1100, 6}, 
+        {100000, 950, 1000, 7}, 
 #else //just for dvs test
         {1000000, 1250, 1100, 0},
         {800000, 1250, 1100, 1},
@@ -110,16 +105,11 @@ static const unsigned int frequency_match_1GHZ[][4] = {
 
 unsigned int frequency_voltage_tab[][3] = {
 /* frequency, Mathced VDD ARM voltage , Matched VDD INT*/
-//        {1600000, 1500, 1500}, 
-//        {1500000, 1500, 1500}, 
-//        {1400000, 1500, 1500}, 
         {1280000, 1300, 1300}, 
         {1200000, 1300, 1300}, 
         {1120000, 1300, 1300}, 
         {1000000, 1275, 1275}, 
-        {900000, 1275, 1275}, 
         {800000, 1200, 1200}, 
-        {600000, 1175, 1175}, 
         {400000, 1050, 1050}, 
         {200000, 950, 950}, 
         {100000, 950, 950}, 
@@ -185,19 +175,14 @@ static const unsigned int dvs_volt_table_800MHZ[][3] = {
 
 #ifdef CONFIG_MACH_S5PC110_ARIES_OC
  static const unsigned int dvs_volt_table_1GHZ[][3] = {
-//        {L0, DVSARM1, DVSINT1},
-//        {L1, DVSARM1, DVSINT1},
-//        {L2, DVSARM1, DVSINT1},
         {L0, DVSARM1, DVSINT1},
         {L1, DVSARM1, DVSINT1},
         {L2, DVSARM1, DVSINT1},
         {L3, DVSARM1, DVSINT1},
-        {L4, DVSARM1, DVSINT1},
-        {L5, DVSARM2, DVSINT1},
-        {L6, DVSARM2, DVSINT1},
-        {L7, DVSARM3, DVSINT1},
-        {L8, DVSARM4, DVSINT1},
-        {L9, DVSARM4, DVSINT2},
+        {L4, DVSARM2, DVSINT1},
+        {L5, DVSARM3, DVSINT1},
+        {L6, DVSARM4, DVSINT1},
+        {L7, DVSARM4, DVSINT2},
 
  };
 #else 
@@ -219,7 +204,7 @@ const unsigned int (*dvs_volt_table[2])[3] = {
 };
 
 static const unsigned int dvs_arm_voltage_set[][2] = {
-        {DVSARM1, 1500},
+        {DVSARM1, 1300},
         {DVSARM2, 1200},
         {DVSARM3, 1050},
         {DVSARM4, 950},
@@ -423,25 +408,20 @@ static int set_max8998(unsigned int pwr, enum perf_level p_lv)
 
 		switch(p_lv)
 	    {
-//		case L0:
-//		case L1:
-//		case L2:
 		case L0:
 		case L1:
 		case L2:
 		case L3:
-		case L4:
 		    max8998_set_dvsarm_direct(DVSARM1, voltage);
 		    break;
-		case L5:
-		case L6:
+		case L4:
 		    max8998_set_dvsarm_direct(DVSARM2, voltage);
 		    break;
-		case L7:
+		case L5:
 		    max8998_set_dvsarm_direct(DVSARM3, voltage);
 		    break;
-		case L8:
-		case L9:
+		case L6:
+		case L7:
 		    max8998_set_dvsarm_direct(DVSARM4, voltage);
 		    break;
 		}
@@ -546,52 +526,42 @@ int set_gpio_dvs(enum perf_level p_lv)
 
 	switch(p_lv)
     {
-//	case L0:
-//	case L1:
-//	case L2:
 	case L0:
 	case L1:
 	case L2:
 	case L3:
-	case L4:
 	    max8998_set_dvsarm_direct(DVSARM1, frequency_match_tab[p_lv][1]);
 	    break;
-	case L5:
-	case L6:
+	case L4:
 	    max8998_set_dvsarm_direct(DVSARM2, frequency_match_tab[p_lv][1]);
 	    break;
-	case L7:
+	case L5:
 	    max8998_set_dvsarm_direct(DVSARM3, frequency_match_tab[p_lv][1]);
 	    break;
-	case L8:
-	case L9:
+	case L6:
+	case L7:
 	    max8998_set_dvsarm_direct(DVSARM4, frequency_match_tab[p_lv][1]);
 	    break;
 	}
 
 	switch(p_lv)
     {
-//        case L0:
-//        case L1:
-//        case L2:
         case L0:
         case L1:
         case L2:
         case L3:
-        case L4:
             writel(((readl(S5PV210_GPH0DAT) & ~PMIC_SET_MASK)                                                ), S5PV210_GPH0DAT);
             break;
-        case L5:
-        case L6:
+        case L4:
             writel(((readl(S5PV210_GPH0DAT) & ~PMIC_SET_MASK) | PMIC_SET1_BIT                                ), S5PV210_GPH0DAT);
             break;
-        case L7:
+        case L5:
             writel(((readl(S5PV210_GPH0DAT) & ~PMIC_SET_MASK)                 | PMIC_SET2_BIT                ), S5PV210_GPH0DAT);
             break;
-        case L8:
+        case L6:
             writel(((readl(S5PV210_GPH0DAT) & ~PMIC_SET_MASK) | PMIC_SET1_BIT | PMIC_SET2_BIT                ), S5PV210_GPH0DAT);
             break;
-        case L9:
+        case L7:
             writel(((readl(S5PV210_GPH0DAT) & ~PMIC_SET_MASK) | PMIC_SET1_BIT | PMIC_SET2_BIT | PMIC_SET3_BIT), S5PV210_GPH0DAT);
             break;
         default:
@@ -762,9 +732,9 @@ static int max8998_consumer_probe(struct platform_device *pdev)
 	/*initialise the dvs registers*/
 #ifdef DECREASE_DVFS_DELAY
     max8998_set_dvsarm_direct(DVSARM1, frequency_match_tab[3][1]);
-    max8998_set_dvsarm_direct(DVSARM2, frequency_match_tab[5][1]);
-    max8998_set_dvsarm_direct(DVSARM3, frequency_match_tab[8][1]);
-    max8998_set_dvsarm_direct(DVSARM4, frequency_match_tab[9][1]);
+    max8998_set_dvsarm_direct(DVSARM2, frequency_match_tab[4][1]);
+    max8998_set_dvsarm_direct(DVSARM3, frequency_match_tab[5][1]);
+    max8998_set_dvsarm_direct(DVSARM4, frequency_match_tab[7][1]);
     max8998_set_dvsint_direct(DVSINT1, frequency_match_tab[0][2]);
     max8998_set_dvsint_direct(DVSINT2, frequency_match_tab[10][2]);
 #else

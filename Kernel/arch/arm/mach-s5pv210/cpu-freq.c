@@ -57,7 +57,7 @@ unsigned int s5pc11x_cpufreq_index = 6;
 static char cpufreq_governor_name[CPUFREQ_NAME_LEN] = "conservative";// default governor
 static char userspace_governor[CPUFREQ_NAME_LEN] = "userspace";
 static char conservative_governor[CPUFREQ_NAME_LEN] = "conservative";
-static char interactive_governor[CPUFREQ_NAME_LEN] = "interactive";
+
 int s5pc11x_clk_dsys_psys_change(int index);
 int s5pc11x_armclk_set_rate(struct clk *clk, unsigned long rate);
 
@@ -83,23 +83,18 @@ extern int store_up_down_threshold(unsigned int down_threshold_value,
 /* frequency */
 #ifdef CONFIG_MACH_S5PC110_ARIES_OC
 static struct cpufreq_frequency_table s5pc110_freq_table_1GHZ[] = {
-/*	{L0, 1600*1000},
-	{L1, 1500*1000},
-	{L2, 1400*1000},
-*/
 	{L0, 1280*1000},
 	{L1, 1200*1000},
 	{L2, 1120*1000},
 	{L3, 1000*1000},
-	{L4, 900*1000},
-	{L5, 800*1000},
-	{L6, 600*1000},
-	{L7, 400*1000},
-	{L8, 200*1000},
-	{L9, 100*1000},
+	{L4, 800*1000},
+	{L5, 400*1000},
+	{L6, 200*1000},
+	{L7, 100*1000},
  	{0, CPUFREQ_TABLE_END},
 };
 #else
+
 static struct cpufreq_frequency_table s5pc110_freq_table_1GHZ[] = {
 	{L0, 1000*1000},
 	{L1, 800*1000},
@@ -111,32 +106,16 @@ static struct cpufreq_frequency_table s5pc110_freq_table_1GHZ[] = {
 #endif
 
 /*Assigning different index for fast scaling up*/
+
 #ifdef CONFIG_MACH_S5PC110_ARIES_OC
 static unsigned char transition_state_1GHZ[][2] = {
-        {0, 3},//1.4
-        {1, 3},//1.36
-        {2, 3},//1.28
-        {3, 3},//1.2
-        {4, 3},//1.12
-        {5, 3},//1
-        {6, 3},//800
-        {7, 5},//400
-        {8, 6},//200
-        {9, 7},//100
-/*        {1, 0},
+        {1, 0},
         {2, 0},
         {3, 1},
         {4, 2},
         {5, 3},
         {6, 4},
         {7, 5},
-        {8, 6},
-        {9, 7}, 
-        {10, 8}, 
-        {11, 9}, 
-        {12, 10}, 
-        {12, 11},   
-*/
 };
 #else
 static unsigned char transition_state_1GHZ[][2] = {
@@ -187,14 +166,9 @@ static struct cpufreq_frequency_table *s5pc110_freq_table[] = {
 
 #ifdef CONFIG_MACH_S5PC110_ARIES_OC
 static unsigned int s5pc110_thres_table_1GHZ[][2] = {
-//       	 {30, 70},
-//       	 {30, 70},
-//       	 {30, 70},
        	 {30, 70},
        	 {30, 70},
        	 {30, 70},
-         {30, 70},
-         {30, 70},
          {30, 70},
          {30, 70},
          {30, 70},
@@ -203,7 +177,7 @@ static unsigned int s5pc110_thres_table_1GHZ[][2] = {
 };
 #else
 static unsigned int s5pc110_thres_table_1GHZ[][2] = {
-       	{55, 80},
+         {55, 80},
          {50, 90},
          {50, 90},
          {40, 90},
@@ -232,17 +206,6 @@ static int get_dvfs_perf_level(enum freq_level_states freq_level, unsigned int *
 	struct cpufreq_frequency_table *freq_tab = s5pc110_freq_table[S5PC11X_FREQ_TAB];
 	switch(freq_level)
 	{
-/*
-	case LEV_1600MHZ:
-		freq = 1600 * 1000;
-		break;
-	case LEV_1500MHZ:
-		freq = 1500 * 1000;
-		break;
-	case LEV_1400MHZ:
-		freq = 1400 * 1000;
-		break;
-*/
 	case LEV_1280MHZ:
 		freq = 1280 * 1000;
 		break;
@@ -255,14 +218,8 @@ static int get_dvfs_perf_level(enum freq_level_states freq_level, unsigned int *
 	case LEV_1000MHZ:
 		freq = 1000 * 1000;
 		break;
-	case LEV_900MHZ:
-		freq = 900 * 1000;
-		break;
 	case LEV_800MHZ:
 		freq = 800 * 1000;
-		break;
-	case LEV_600MHZ:
-		freq = 600 * 1000;
 		break;
 	case LEV_400MHZ:
 		freq = 400 * 1000;
