@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-config SND_VOODOO
-=======
 menuconfig SND_VOODOO
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 	bool "Voodoo sound driver"
 	depends on SND_S3C24XX_SOC
 	default y
@@ -27,8 +23,6 @@ config SND_VOODOO_HP_LEVEL
 	  Default headphone amplifier level. Take care not setting it to high,
 	  it would introduce hiss for people not using the control app
 
-<<<<<<< HEAD
-=======
 config SND_VOODOO_RECORD_PRESETS
 	bool "Microphone recording presets"
 	depends on SND_VOODOO
@@ -41,7 +35,6 @@ config SND_VOODOO_RECORD_PRESETS
 	    - Balanced (recommanded, default)
 	    - Loud environment - concert
 
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 config SND_VOODOO_FM
 	bool "FM radio: restore a normal frequency response"
 	depends on SND_VOODOO && SND_ARIES_SOC_WM8994
@@ -54,8 +47,6 @@ config SND_VOODOO_DEBUG
 	depends on SND_VOODOO && SND_ARIES_SOC_WM8994
 	default n
 	help
-<<<<<<< HEAD
-=======
 	  Allow to codec dump registers and load register-address/value batchs
 	  Powerful but also dangerous tool
 
@@ -64,5 +55,4 @@ config SND_VOODOO_DEBUG_LOG
 	depends on SND_VOODOO_DEBUG
 	default n
 	help
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 	  Log codec writes

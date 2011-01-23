@@ -24,11 +24,7 @@
 #include "wm8994_voodoo.h"
 
 #define SUBJECT "wm8994_voodoo.c"
-<<<<<<< HEAD
-#define VOODOO_SOUND_VERSION 1
-=======
 #define VOODOO_SOUND_VERSION 2
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 
 
 #ifdef CONFIG_SND_VOODOO_HP_LEVEL_CONTROL
@@ -37,9 +33,6 @@ unsigned short hprvol = CONFIG_SND_VOODOO_HP_LEVEL;
 bool hpvol_force = true;
 #endif
 
-<<<<<<< HEAD
-bool fm_radio_headset_restore_bass = true;
-=======
 #ifdef CONFIG_SND_VOODOO_FM
 bool fm_radio_headset_restore_bass = true;
 #endif
@@ -50,7 +43,6 @@ unsigned short recording_preset = 1;
 
 bool full_bitwidth = false;
 bool dac_osr128 = false;
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 
 // keep here a pointer to the codec structure
 struct snd_soc_codec *codec_;
@@ -95,17 +87,10 @@ void update_fm_radio_headset_restore_bass(bool with_mute)
 	if (fm_radio_headset_restore_bass)
 	{
 		// disable Sidetone high-pass filter designed for voice and not FM radio
-<<<<<<< HEAD
-		// 0x621 0x0000 SMbus_16inx_16dat     Write  0x34      * Sidetone(621H):          0000  ST_HPF_CUT=000, ST_HPF=0, ST2_SEL=0, ST1_SEL=0
-		wm8994_write(codec_, WM8994_SIDETONE, 0x0000);
-		// disable 4FS ultrasonic mode and restore the hi-fi <4Hz hi pass filter
-		// 0x510 0x1800 SMbus_16inx_16dat     Write  0x34      * AIF2 ADC Filters(510H):  1800  AIF2ADC_4FS=0, AIF2ADC_HPF_CUT=00, AIF2ADCL_HPF=1, AIF2ADCR_HPF=1
-=======
 		// Sidetone(621H): 0000  ST_HPF_CUT=000, ST_HPF=0, ST2_SEL=0, ST1_SEL=0
 		wm8994_write(codec_, WM8994_SIDETONE, 0x0000);
 		// disable 4FS ultrasonic mode and restore the hi-fi <4Hz hi pass filter
 		// AIF2 ADC Filters(510H): 1800 AIF2ADC_4FS=0, AIF2ADC_HPF_CUT=00, AIF2ADCL_HPF=1, AIF2ADCR_HPF=1
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 		wm8994_write(codec_, WM8994_AIF2_ADC_FILTERS, 0x1800);
 	}
 	else
@@ -122,8 +107,6 @@ void update_fm_radio_headset_restore_bass(bool with_mute)
 #endif
 
 
-<<<<<<< HEAD
-=======
 #ifdef CONFIG_SND_VOODOO_RECORD_PRESETS
 void update_recording_preset()
 {
@@ -215,7 +198,6 @@ void update_dac_osr128()
 		wm8994_write(codec_, WM8994_OVERSAMPLING, 0);
 }
 
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 /*
  *
  * Declaring the controling misc devices
@@ -241,10 +223,7 @@ static ssize_t headphone_amplifier_level_store(struct device *dev, struct device
 }
 #endif
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 #ifdef CONFIG_SND_VOODOO_FM
 static ssize_t fm_radio_headset_restore_bass_show(struct device *dev, struct device_attribute *attr, char *buf)
 {
@@ -267,8 +246,6 @@ static ssize_t fm_radio_headset_restore_bass_store(struct device *dev, struct de
 }
 #endif
 
-<<<<<<< HEAD
-=======
 
 #ifdef CONFIG_SND_VOODOO_RECORD_PRESETS
 static ssize_t recording_preset_show(struct device *dev, struct device_attribute *attr, char *buf)
@@ -323,7 +300,6 @@ static ssize_t dac_osr128_store(struct device *dev, struct device_attribute *att
 }
 
 
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 #ifdef CONFIG_SND_VOODOO_DEBUG
 static ssize_t show_wm8994_register_dump(struct device *dev, struct device_attribute *attr, char *buf)
 {
@@ -408,14 +384,11 @@ static DEVICE_ATTR(headphone_amplifier_level, S_IRUGO | S_IWUGO , headphone_ampl
 #ifdef CONFIG_SND_VOODOO_FM
 static DEVICE_ATTR(fm_radio_headset_restore_bass, S_IRUGO | S_IWUGO , fm_radio_headset_restore_bass_show, fm_radio_headset_restore_bass_store);
 #endif
-<<<<<<< HEAD
-=======
 #ifdef CONFIG_SND_VOODOO_RECORD_PRESETS
 static DEVICE_ATTR(recording_preset, S_IRUGO | S_IWUGO , recording_preset_show, recording_preset_store);
 #endif
 static DEVICE_ATTR(full_bitwidth, S_IRUGO | S_IWUGO , full_bitwidth_show, full_bitwidth_store);
 static DEVICE_ATTR(dac_osr128, S_IRUGO | S_IWUGO , dac_osr128_show, dac_osr128_store);
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 #ifdef CONFIG_SND_VOODOO_DEBUG
 static DEVICE_ATTR(wm8994_register_dump, S_IRUGO , show_wm8994_register_dump, NULL);
 static DEVICE_ATTR(wm8994_write, S_IWUSR , NULL, store_wm8994_write);
@@ -429,14 +402,11 @@ static struct attribute *voodoo_sound_attributes[] = {
 #ifdef CONFIG_SND_VOODOO_FM
 		&dev_attr_fm_radio_headset_restore_bass.attr,
 #endif
-<<<<<<< HEAD
-=======
 #ifdef CONFIG_SND_VOODOO_RECORD_PRESETS
 		&dev_attr_recording_preset.attr,
 #endif
 		&dev_attr_full_bitwidth.attr,
 		&dev_attr_dac_osr128.attr,
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 #ifdef CONFIG_SND_VOODOO_DEBUG
 		&dev_attr_wm8994_register_dump.attr,
 		&dev_attr_wm8994_write.attr,
@@ -467,17 +437,11 @@ void voodoo_hook_fmradio_headset()
 	if (! fm_radio_headset_restore_bass)
 		return;
 
-<<<<<<< HEAD
-	printk("Voodoo sound: correct FM radio sound output\n");
-=======
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 	update_fm_radio_headset_restore_bass(false);
 }
 #endif
 
 
-<<<<<<< HEAD
-=======
 #ifdef CONFIG_SND_VOODOO_RECORD_PRESETS
 void voodoo_hook_record_main_mic()
 {
@@ -492,7 +456,6 @@ void voodoo_hook_playback_headset()
 }
 
 
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 unsigned int voodoo_hook_wm8994_write(struct snd_soc_codec *codec, unsigned int reg, unsigned int value)
 {
 	// modify some registers before those being written to the codec
@@ -507,11 +470,7 @@ unsigned int voodoo_hook_wm8994_write(struct snd_soc_codec *codec, unsigned int 
 	}
 #endif
 
-<<<<<<< HEAD
-#ifdef CONFIG_SND_VOODOO_DEBUG
-=======
 #ifdef CONFIG_SND_VOODOO_DEBUG_LOG
->>>>>>> 04c0c6e20b7a0c0b29868cbc15a685c26405e9e4
 	// log every write to dmesg
 	DEBUG_LOG_ERR("register= [%X] value= [%X]", reg, value);
 #endif
